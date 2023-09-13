@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
+import { FaUser } from 'react-icons/fa'; // Import the FaUser icon from react-icons library
 
-function Ticket({ title, priority, status, assignedTo, iconName }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+function Ticket({ id, title, priority, status, assignedTo }) {
+  const [expanded, setExpanded] = useState(false);
 
-  const toggleExpansion = () => {
-    setIsExpanded(!isExpanded);
+  const toggleExpand = () => {
+    setExpanded(!expanded);
   };
 
   return (
-    <div className="ticket">
+    <div className={`ticket ${expanded ? 'expanded' : ''}`}>
       <div className="ticket-header">
-        <h3>{title}</h3>
-        <button className="expand-button" onClick={toggleExpansion}>
-          {isExpanded ? '-' : '...'}
-        </button>
+        <span className="ticket-number">{id}</span>
+        <FaUser className="profile-icon" /> {/* Display the user profile icon */}
       </div>
-      {isExpanded && (
-        <div className="ticket-details">
-          <p>Priority: {priority}</p>
-          <p>Status: {status}</p>
-          <p>Assigned to: {assignedTo}</p>
-        </div>
-      )}
+      <div className="ticket-content">
+        {expanded ? (
+          <div className="ticket-details">
+            <h3>{title}</h3>
+            <p>Priority: {priority}</p>
+            <p>Status: {status}</p>
+            <p>Assigned to: {assignedTo}</p>
+          </div>
+        ) : (
+          <h3>{title}</h3>
+        )}
+      </div>
+      <button className="expand-button" onClick={toggleExpand}>
+        {expanded ? 'Hide' : '...'}
+      </button>
     </div>
   );
 }

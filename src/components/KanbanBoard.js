@@ -62,14 +62,14 @@ function KanbanBoard({ tickets, groupingOption, sortingOption }) {
 
   return (
     <div className="kanban-board">
-      <div className="kanban-header">
-        <button className="add-button" onClick={openForm}>
-          +
-        </button>
-      </div>
+      
       {Object.entries(groupedTickets).map(([group, tickets]) => (
         <div key={group} className="kanban-column">
           <h2>{group}</h2>
+          <button className="add-button" onClick={openForm}>
+          +
+        </button>
+        
           {tickets.map((ticket) => (
             <Ticket key={ticket.id} {...ticket} />
           ))}
